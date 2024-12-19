@@ -7,7 +7,6 @@ const UserSchema = new mongoose.Schema({
   avatar: { type: String }, // URL to the user's profile picture
   firstName: { type: String }, // User's first name
   lastName: { type: String }, // User's last name
-  username: { type: String }, // User's username
 });
 
 const UserModel = mongoose.models.User || mongoose.model("User", UserSchema);
