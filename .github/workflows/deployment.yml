@@ -24,3 +24,6 @@ jobs:
             uptime
             whoami
             ls -la /home/ubuntu/
+            node -v       
+            npm -v       
+            pm2 -v
