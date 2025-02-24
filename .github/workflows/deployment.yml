@@ -18,4 +18,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
-          script: whoami
+          script: |
+            cd /home/ubuntu/EC2_next
+            git pull origin main
+            npm install
+            npm run build 
+            pm2 restart all

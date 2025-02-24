@@ -9,6 +9,7 @@ export default function Home() {
           This Next.js app is running on AWS infrastructure.
         </p>
         <p className='text-gray-500 mt-2'>By Anuj</p>
+        <p>Testing if website auto deploy</p>
         <div className='mt-6'>
           <button className='px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition'>
             Learn More
