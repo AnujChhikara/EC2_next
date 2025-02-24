@@ -19,11 +19,8 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/EC2_next
-            git pull origin main
-            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt install -y nodejs
-            npm install -g pm2
-            npm install
-            npm run build 
-            pm2 restart all
+            echo "Checking if we can reach the server..."
+            hostname
+            uptime
+            whoami
+            ls -la /home/ubuntu/
