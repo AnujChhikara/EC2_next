@@ -11,7 +11,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: executing remote ssh commands using password
+      - name: Auto deploy using ssh key
         uses: appleboy/ssh-action@v1.2.1
         with:
           host: ${{ secrets.HOST }}
@@ -19,7 +19,6 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: |
-            echo "Checking if we can reach the server..."
             cd /home/ubuntu/EC2_next
             git pull origin main
             npm run build 
