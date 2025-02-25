@@ -18,8 +18,11 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
-          script: |
-            cd /home/ubuntu/EC2_next
-            git pull origin main
-            npm run build 
+            script:|
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 22
+            cd /home/ubuntu/EC2_next || exit 1
+            git pull origin main || exit 1
+            npm run build || exit 1
             pm2 restart hecka
