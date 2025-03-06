@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{secrets.STAGING_SSH_KEY}} &> ~/ssh_key
-          ssh -i ~/ssh_key ubuntu@13.127.191.58
+          echo "${{secrets.STAGING_SSH_KEY}}" &> ~/ssh_key
+          echo "yes" | ssh -i ~/ssh_key ubuntu@13.127.191.58
           cd EC2_next && git pull
           npm install
           npm run build
