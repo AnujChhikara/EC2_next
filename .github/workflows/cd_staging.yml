@@ -1,0 +1,17 @@
+name: Deploy to staging
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  redeploy_website:
+    name: Deploying the next project on staging
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{secrets.STAGING_SSH_KEY}} &> ~/ssh_key
+          ssh -i ~/ssh_key ubuntu@13.127.191.58
+          cd EC2_next && git pull
+          npm install
+          npm run build
+          pm2 restart hecka
