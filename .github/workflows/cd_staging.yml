@@ -10,7 +10,8 @@ jobs:
     steps:
       - run: |
           echo "${{secrets.STAGING_SSH_KEY}}" &> ~/ssh_key
-          echo "yes" | ssh -i ~/ssh_key ubuntu@13.127.191.58
+          echo "${{secrets.KNOWN_HOST}}" &> ~/.ssh/known_hosts
+          ssh -i ~/ssh_key ubuntu@3.109.210.218
           cd EC2_next && git pull
           npm install
           npm run build
