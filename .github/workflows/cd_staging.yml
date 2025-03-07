@@ -1,3 +1,7 @@
+#this ci pipeline will deploy the main branch code
+#on the staging server everytime
+#someone push code to this branch
+
 name: Deploy to staging
 on:
   push:
@@ -15,9 +19,9 @@ jobs:
       - name: Auto deploy to staging using ssh key
         uses: appleboy/ssh-action@v1.2.1
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.HOST }} #IP address of the machine
           username: ubuntu
-          key: ${{ secrets.STAGING_SSH_KEY }}
+          key: ${{ secrets.STAGING_SSH_KEY }} #ssh key
           port: 22
           script: |
             export NVM_DIR="$HOME/.nvm"

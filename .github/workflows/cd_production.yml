@@ -1,22 +1,27 @@
-name: Deploy to EC2
+#this ci pipeline will deploy the main branch code
+#on the staging server everytime
+#someone push code to this branch
 
-on: [push]
+name: Deploy to production
+on:
+  push:
+    branches: ["production"]
 
 jobs:
   deploy:
-    name: Push to EC2
+    name: Deploy to EC2 Instance
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Auto deploy using ssh key
+      - name: Auto deploy to staging using ssh key
         uses: appleboy/ssh-action@v1.2.1
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.PROD_HOST }} #IP address of the machine
           username: ubuntu
-          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }} #ssh key
           port: 22
           script: |
             export NVM_DIR="$HOME/.nvm"
