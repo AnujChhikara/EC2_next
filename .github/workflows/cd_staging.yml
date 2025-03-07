@@ -4,20 +4,29 @@ on:
     branches: ["main"]
 
 jobs:
-  redeploy_website:
-    name: Deploying the next project on staging
+  deploy:
+    name: Deploy to EC2 Instance
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-          echo "${{secrets.STAGING_SSH_KEY}}" &> ~/ssh_key
-          mkdir -p /home/runner/.ssh
-          ls /home/runner/.ssh
-          touch /home/runner/.ssh/known_hosts
-          echo "${{secrets.KNOWN_HOST}}" &> /home/runner/.ssh/known_hosts
-          chmod 700 /home/runner/ssh_key
-          ssh -i ~/ssh_key ubuntu@3.109.210.218
-          ls -lah /home/ubuntu
-          cd EC2_next && git pull
-          npm install
-          npm run build
-          pm2 restart hecka
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Auto deploy to staging using ssh key
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          port: 22
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm use 22
+
+            cd /home/ubuntu/EC2_next || exit 1
+            git pull origin main || exit 1
+            npm install || exit 1
+            npm run build || exit 1
+
+            pm2 restart hecka
