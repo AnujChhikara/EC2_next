@@ -10,6 +10,7 @@ jobs:
     steps:
       - run: |
           echo "${{secrets.STAGING_SSH_KEY}}" &> ~/ssh_key
+          mkdir .ssh
           echo "${{secrets.KNOWN_HOST}}" &> ~/.ssh/known_hosts
           ssh -i ~/ssh_key ubuntu@3.109.210.218
           cd EC2_next && git pull
