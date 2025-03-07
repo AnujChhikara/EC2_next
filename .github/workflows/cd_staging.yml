@@ -16,6 +16,7 @@ jobs:
           echo "${{secrets.KNOWN_HOST}}" &> /home/runner/.ssh/known_hosts
           chmod 700 /home/runner/ssh_key
           ssh -i ~/ssh_key ubuntu@3.109.210.218
+          ls -lah /home/ubuntu
           cd EC2_next && git pull
           npm install
           npm run build
